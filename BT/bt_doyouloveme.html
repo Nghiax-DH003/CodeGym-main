@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Do You Love Me?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 5px;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+<h1>Do you love me?</h1>
+<button id="yesBtn">YES</button>
+<button id="noBtn">NO</button>
+
+<script>
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
+
+  yesBtn.onclick = function() {
+    alert("<3");
+  }
+
+  noBtn.onmouseover = function() {
+    let x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+    let y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+    noBtn.style.position = "absolute";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  }
+</script>
+</body>
+</html>

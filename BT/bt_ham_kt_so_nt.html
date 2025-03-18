@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Tìm số nguyên tố nhỏ hơn 10000</title>
+</head>
+<body>
+<h1>Tìm số nguyên tố nhỏ hơn 10.000</h1>
+<button onclick="timSoNguyenTo()">Chạy</button>
+<pre id="output"></pre>
+
+<script>
+  function isPrime(number) {
+    if (number < 2) return false;
+    for (let i = 2; i <= Math.sqrt(number); i++) {
+      if (number % i === 0) return false;
+    }
+    return true;
+  }
+
+  function timSoNguyenTo() {
+    let primes = [];
+    for (let n = 2; n < 10000; n++) {
+      if (isPrime(n)) {
+        primes.push(n);
+      }
+    }
+    document.getElementById("output").textContent = primes.join(", ");
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>20 Số Nguyên Tố Đầu Tiên</title>
+</head>
+<body>
+<h1>Hiển Thị Số Nguyên Tố</h1>
+<div id="result"></div>
+<script>
+    function isPrime(n) {
+        if (n < 2) return false;
+        for (let i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i === 0) return false;
+        }
+        return true;
+    }
+    let numbers = parseInt(prompt("Nhập số lượng số nguyên tố cần hiển thị:"));
+    let count = 0;
+    let N = 2;
+    let output = "";
+    while (count < numbers) {
+        if (isPrime(N)) {
+            output += N + " ";
+            count++;
+        }
+        N++;
+    }
+    document.getElementById("result").textContent = output;
+</script>
+</body>
+</html>

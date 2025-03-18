@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+#controls {
+    margin-bottom: 15px;
+}
+
+label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+input[type="number"] {
+    width: 60px;
+    margin-right: 20px;
+    padding: 5px;
+}
+
+button {
+    padding: 5px 15px;
+    cursor: pointer;
+    background: green;
+    color: white;
+    border: none;
+    margin-left: 5px;
+}
+
+#myCanvas {
+    border: 1px solid #000;
+    background: #fafafa;
+    display: block;
+    margin-bottom: 15px;
+}
+
+#info {
+    font-weight: bold;
+    color: #333;
+}

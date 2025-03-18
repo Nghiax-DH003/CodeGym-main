@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Bài Tập Hàm</title>
+</head>
+<body>
+<h1>Bài Tập Hàm</h1>
+<button onclick="bai1()">1. Tính bình phương</button>
+<button onclick="bai2()">2. Diện tích & Chu vi hình tròn</button>
+<button onclick="bai3()">3. Tính giai thừa</button>
+<button onclick="bai4()">4. Kiểm tra ký tự số</button>
+<button onclick="bai5()">5. Số nhỏ nhất trong 3 số</button>
+<button onclick="bai6()">6. Kiểm tra số nguyên dương</button>
+<button onclick="bai7()">7. Đổi chỗ hai số</button>
+<button onclick="bai8()">8. Đảo ngược mảng</button>
+<button onclick="bai9()">9. Kiểm tra ký tự trong mảng</button>
+<pre id="output"></pre>
+
+<script>
+  function bai1() {
+    function binhPhuong(n) {
+      return n * n;
+    }
+    let x = parseFloat(prompt("Nhập 1 số bất kỳ:"));
+    let result = binhPhuong(x);
+    document.getElementById("output").textContent =
+            "Bình phương của " + x + " = " + result;
+  }
+
+  function bai2() {
+    function dienTichHinhTron(r) {
+      return 3.14159 * r * r;
+    }
+    function chuViHinhTron(r) {
+      return 2 * 3.14159 * r;
+    }
+    let r = parseFloat(prompt("Nhập bán kính:"));
+    let dt = dienTichHinhTron(r);
+    let cv = chuViHinhTron(r);
+    document.getElementById("output").textContent =
+            "Diện tích = " + dt.toFixed(2) + "\nChu vi = " + cv.toFixed(2);
+  }
+
+  function bai3() {
+    function giaiThua(n) {
+      let gt = 1;
+      for (let i = 1; i <= n; i++) {
+        gt *= i;
+      }
+      return gt;
+    }
+    let x = parseInt(prompt("Nhập 1 số nguyên dương:"));
+    let result = giaiThua(x);
+    document.getElementById("output").textContent =
+            x + "! = " + result;
+  }
+
+  function bai4() {
+    function laKyTuSo(ch) {
+      if (ch >= '0' && ch <= '9') {
+        return true;
+      }
+      return false;
+    }
+    let c = prompt("Nhập 1 ký tự:").charAt(0);
+    let result = laKyTuSo(c);
+    document.getElementById("output").textContent =
+            "Ký tự " + c + " có phải là số? " + result;
+  }
+
+  function bai5() {
+    function soNhoNhat(a, b, c) {
+      let min = a;
+      if (b < min) min = b;
+      if (c < min) min = c;
+      return min;
+    }
+    let a = parseInt(prompt("Nhập a:"));
+    let b = parseInt(prompt("Nhập b:"));
+    let c = parseInt(prompt("Nhập c:"));
+    let m = soNhoNhat(a, b, c);
+    document.getElementById("output").textContent =
+            "Số nhỏ nhất trong 3 số = " + m;
+  }
+
+  function bai6() {
+    function laNguyenDuong(x) {
+      if (x > 0 && Number.isInteger(x)) {
+        return true;
+      }
+      return false;
+    }
+    let n = parseFloat(prompt("Nhập 1 số:"));
+    let result = laNguyenDuong(n);
+    document.getElementById("output").textContent =
+            n + " có phải nguyên dương? " + result;
+  }
+
+  function bai7() {
+    function doiCho(a, b) {
+      return [b, a];
+    }
+    let a = parseInt(prompt("Nhập a:"));
+    let b = parseInt(prompt("Nhập b:"));
+    let rs = doiCho(a, b);
+    document.getElementById("output").textContent =
+            "Trước: a=" + a + ", b=" + b +
+            "\nSau: a=" + rs[0] + ", b=" + rs[1];
+  }
+
+  function bai8() {
+    function daoNguocMang(arr) {
+      let left = 0;
+      let right = arr.length - 1;
+      while (left < right) {
+        let temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
+        left++;
+        right--;
+      }
+    }
+    let arr = [1, 2, 3, 4, 5, 6];
+    daoNguocMang(arr);
+    document.getElementById("output").textContent =
+            "Mảng sau khi đảo: " + arr.join(", ");
+  }
+
+  function bai9() {
+    function kiemTraKyTu(arr, ch) {
+      let count = 0;
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === ch) {
+          count++;
+        }
+      }
+      if (count === 0) return -1;
+      return count;
+    }
+    let arr = ['a', 'b', 'c', 'a', 'x', 'a'];
+    let c = prompt("Nhập ký tự muốn kiểm tra:");
+    let rs = kiemTraKyTu(arr, c);
+    document.getElementById("output").textContent =
+            "Mảng: " + arr.join(", ") +
+            "\nKết quả: " + rs;
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Bài Tập Mảng</title>
+</head>
+<body>
+<h1>Bài Tập Mảng</h1>
+<button onclick="bai1()">Bài 1</button>
+<button onclick="bai2()">Bài 2</button>
+<button onclick="bai3()">Bài 3</button>
+<button onclick="bai4()">Bài 4</button>
+<button onclick="bai5()">Bài 5</button>
+<button onclick="bai6()">Bài 6</button>
+<button onclick="bai7()">Bài 7</button>
+<button onclick="bai8()">Bài 8</button>
+<button onclick="bai9()">Bài 9</button>
+<pre id="output"></pre>
+
+<script>
+  function bai1() {
+    let arr = [5, 10, 25, 9, 10, 12, 3, 10, 99, 2];
+    let count = 0;
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] >= 10) {
+        count++;
+      }
+    }
+    document.getElementById("output").textContent =
+            "Mảng: " + arr.join(", ") + "\nCó " + count + " số >= 10";
+  }
+
+  function bai2() {
+    let arr = [3, 1, 9, 12, 6, 15, 2, 5, 10, 8];
+    let maxVal = arr[0];
+    let maxIdx = 0;
+    for (let i = 1; i < arr.length; i++) {
+      if (arr[i] > maxVal) {
+        maxVal = arr[i];
+        maxIdx = i;
+      }
+    }
+    document.getElementById("output").textContent =
+            "Mảng: " + arr.join(", ") +
+            "\nGiá trị lớn nhất: " + maxVal +
+            "\nVị trí: " + maxIdx;
+  }
+
+  function bai3() {
+    let arr = [10, 5, 15, 20, 7, 12];
+    let maxVal = arr[0];
+    let sum = arr[0];
+    for (let i = 1; i < arr.length; i++) {
+      sum += arr[i];
+      if (arr[i] > maxVal) {
+        maxVal = arr[i];
+      }
+    }
+    let avg = sum / arr.length;
+    document.getElementById("output").textContent =
+            "Mảng: " + arr.join(", ") +
+            "\nGiá trị lớn nhất: " + maxVal +
+            "\nTrung bình: " + avg;
+  }
+
+  function bai4() {
+    let arr = [1, 2, 3, 4, 5, 6];
+    let left = 0;
+    let right = arr.length - 1;
+    while (left < right) {
+      let temp = arr[left];
+      arr[left] = arr[right];
+      arr[right] = temp;
+      left++;
+      right--;
+    }
+    document.getElementById("output").textContent =
+            "Mảng đảo ngược: " + arr.join(", ");
+  }
+
+  function bai5() {
+    let inputStr = "He110 w0r1d -12.5";
+    let count = 0;
+    for (let i = 0; i < inputStr.length; i++) {
+      let c = inputStr[i];
+      if (!isNaN(parseInt(c)) && c !== " ") {
+        count++;
+      }
+    }
+    document.getElementById("output").textContent =
+            "Chuỗi: " + inputStr + "\nSố nguyên âm (digit) đếm được: " + count;
+  }
+
+  function bai6() {
+    let arr = [4, 6, 10, 12, 1, 7, 9, 2, 15, 11];
+    let v = 7;
+    let found = arr.indexOf(v) !== -1;
+    let msg = found ? (v + " is in the array") : (v + " is not in the array");
+    document.getElementById("output").textContent =
+            "Mảng: " + arr.join(", ") +
+            "\nV = " + v +
+            "\n" + msg;
+  }
+
+  function bai7() {
+    let arr = [5, 7, 10, 7, 8, 3, 2, 1, 9, 7];
+    let v = 7;
+    let idx = arr.indexOf(v);
+    if (idx !== -1) {
+      for (let i = idx; i < arr.length - 1; i++) {
+        arr[i] = arr[i + 1];
+      }
+      arr[arr.length - 1] = 0;
+    }
+    document.getElementById("output").textContent =
+            "Mảng sau khi xóa " + v + " (nếu có):\n" + arr.join(", ");
+  }
+
+  function bai8() {
+    let arr = [5, 10, 3, 7, 15, 1, 9, 2, 20, 12];
+    for (let i = 0; i < arr.length - 1; i++) {
+      for (let j = i + 1; j < arr.length; j++) {
+        if (arr[i] < arr[j]) {
+          let temp = arr[i];
+          arr[i] = arr[j];
+          arr[j] = temp;
+        }
+      }
+    }
+    document.getElementById("output").textContent =
+            "Mảng sắp xếp giảm dần:\n" + arr.join(", ");
+  }
+
+  function bai9() {
+    let a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let b = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+    let c = [];
+    for (let i = 0; i < b.length; i++) {
+      c.push(b[i]);
+    }
+    for (let i = 0; i < a.length; i++) {
+      c.push(a[i]);
+    }
+    document.getElementById("output").textContent =
+            "Mảng a: " + a.join(", ") +
+            "\nMảng b: " + b.join(", ") +
+            "\nMảng c (nối b, a): " + c.join(", ");
+  }
+</script>
+</body>
+</html>
