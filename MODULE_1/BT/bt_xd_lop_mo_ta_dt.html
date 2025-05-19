@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Mobile Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        button {
+            padding: 8px 15px;
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #output {
+            margin-top: 15px;
+            white-space: pre;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<h1>Mobile Demo</h1>
+<button onclick="runDemo()">Run Demo</button>
+<pre id="output"></pre>
+
+<script>
+    class Mobile {
+        constructor(name) {
+            this.name = name;
+            this.pin = 100;
+            this.isOn = false;
+            this.draft = "";
+            this.inbox = [];
+            this.sent = [];
+        }
+        turnOn() {
+            if (!this.isOn) {
+                this.isOn = true;
+            }
+        }
+        turnOff() {
+            if (this.isOn) {
+                this.isOn = false;
+            }
+        }
+        charge() {
+            this.pin = 100;
+        }
+        checkPower() {
+            return this.isOn && this.pin > 0;
+        }
+        writeMessage(msg) {
+            if (!this.checkPower()) return false;
+            this.draft = msg;
+            this.pin--;
+            return true;
+        }
+        sendMessage(receiver) {
+            if (!this.checkPower()) return false;
+            receiver.receiveMessage(this.draft, this.name);
+            this.sent.push(this.draft);
+            this.draft = "";
+            this.pin--;
+            return true;
+        }
+        receiveMessage(msg, senderName) {
+            this.inbox.push(`From ${senderName}: ${msg}`);
+        }
+        readInbox() {
+            if (!this.checkPower()) return [];
+            this.pin--;
+            return this.inbox;
+        }
+        readSent() {
+            if (!this.checkPower()) return [];
+            this.pin--;
+            return this.sent;
+        }
+    }
+
+    function runDemo() {
+        let output = document.getElementById("output");
+        output.textContent = "";
+
+        let nokia = new Mobile("Nokia");
+        let iphone = new Mobile("iPhone");
+
+        nokia.turnOn();
+        iphone.turnOn();
+
+        nokia.writeMessage("Hello iPhone!");
+        nokia.sendMessage(iphone);
+
+        let inboxIphone = iphone.readInbox();
+
+        output.textContent += "Nokia pin: " + nokia.pin + "\n";
+        output.textContent += "iPhone pin: " + iphone.pin + "\n\n";
+        output.textContent += "iPhone inbox:\n" + inboxIphone.join("\n") + "\n";
+    }
+</script>
+</body>
+</html>
