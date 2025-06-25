@@ -11,6 +11,8 @@ public class FindMaxIn2DArray {
                 {7.3, 8.9, 6.4}
         };
 
+
+
         double max_value = matrix[0][0];
         int max_row = 0;
         int max_col = 0;
