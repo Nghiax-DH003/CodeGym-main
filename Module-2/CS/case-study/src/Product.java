@@ -9,7 +9,7 @@ public class Product {
     public Product() {
     }
 
-    // Hàm tạo đầy tham số
+    // Hàm tạo tham số
     public Product(long id, String name, double price, int quantity) {
         this.id = id;
         this.name = name;
@@ -49,7 +49,7 @@ public class Product {
         this.quantity = quantity;
     }
 
-    // Ghi đè phương thức
+    // Ghi đè
     @Override
     public String toString() {
         return "Product{" +

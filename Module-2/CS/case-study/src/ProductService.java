@@ -65,7 +65,7 @@ public class ProductService {
         return result;
     }
 
-    // In và lưu file(AI)
+    // In và lưu file()
     public void saveToFile(String path) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
             for (Product product : products.values()) {
