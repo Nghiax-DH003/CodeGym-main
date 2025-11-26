@@ -1,4 +1,3 @@
-// DictionaryController.java
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -6,52 +5,43 @@ import java.util.function.Consumer; // Một interface để lưu trữ một "h
 
 public class DictionaryController {
     
-    private DictionaryService service; // "Người thủ thư"
-    private RequestParser parser;      // "Người phiên dịch"
-    private Scanner inputScanner;      // Để nhận input (như nghĩa, câu mẫu)
+    private DictionaryService service; 
+    private RequestParser parser;      // "Phiên dịch"
+    private Scanner inputScanner;      // Nhận input
 
-    // Map để lưu các hành động, thay thế cho if/else
     private Map<String, Consumer<Request>> actionMap; 
     
-    // Map để chuyển đổi loại định nghĩa từ chuỗi sang Enum
+    // Chuyển đổi loại định nghĩa từ chuỗi sang Enum
     private Map<String, DefinitionType> definitionTypeMap;
 
     public DictionaryController() {
-        // Lấy về "người thủ thư" duy nhất
         this.service = DictionaryService.getInstance(); 
         this.parser = new RequestParser();
         this.inputScanner = new Scanner(System.in);
         
-        // Khởi tạo các "hành động"
         this.actionMap = new HashMap<>();
         initializeActionMap();
         
-        // Khởi tạo map chuyển đổi loại
+        // Chuyển đổi loại
         this.definitionTypeMap = new HashMap<>();
         initializeDefinitionTypeMap();
     }
 
-    /**
-     * Phương thức chính, nhận một yêu cầu và thực thi nó
-     * (Đây là phương thức bạn đang bị thiếu)
-     */
     public void execute(String rawCommand) {
-        // 1. Phân tích chuỗi lệnh thô thành Request
+        // Chuỗi lệnh thô
         Request request = parser.parse(rawCommand);
         
-        // 2. Tìm hành động tương ứng trong Map
-        // Nếu không tìm thấy, dùng một hành động mặc định (handleUnknown)
+        // Tìm hành động tương ứng
         Consumer<Request> action = actionMap.getOrDefault(request.getAction(), this::handleUnknown);
         
-        // 3. Thực thi hành động
+        // Thực thi
         action.accept(request);
     }
     
     /**
-     * Khởi tạo Map chứa các hành động
+     * Khởi tạo Map
      */
     private void initializeActionMap() {
-        // Dùng lambda (->) để định nghĩa các hành động
         actionMap.put("lookup", this::handleLookup);
         actionMap.put("define", this::handleDefine);
         actionMap.put("drop", this::handleDrop);
@@ -59,7 +49,7 @@ public class DictionaryController {
     }
     
     /**
-     * Khởi tạo Map chuyển đổi loại định nghĩa
+     * Khởi tạo Map chuyển đổi
      */
     private void initializeDefinitionTypeMap() {
         definitionTypeMap.put("--pronoun", DefinitionType.PRONOUNCIATION);
@@ -74,14 +64,13 @@ public class DictionaryController {
         definitionTypeMap.put("-s", DefinitionType.SYNONYMOUS);
     }
 
-    // --- Các phương thức xử lý hành động CỤ THỂ ---
+    // --- Các phương thức hành động---
 
     private void handleLookup(Request request) {
         WordEntity word = service.lookup(request.getKeyword());
         if (word == null) {
             System.out.println("Từ '" + request.getKeyword() + "' không tồn tại.");
         } else {
-            // Chúng ta cần một hàm in cho đẹp
             printWord(word); 
         }
     }
@@ -113,35 +102,31 @@ public class DictionaryController {
         System.out.println("Các action hỗ trợ: lookup, define, drop, export");
     }
     
-    /**
-     * Đây là hàm xử lý phức tạp nhất, vì nó cần hỏi thêm người dùng
-     */
     private void handleDefine(Request request) {
-        // Kiểm tra xem có đủ tham số không
+        // Kiểm tra tham số
         if (request.getParams().isEmpty() || request.getKeyword() == null) {
             System.out.println("Lỗi cú pháp. Ví dụ: define --adjective positive");
             return;
         }
 
-        String typeString = request.getParams().get(0); // ví dụ: "--adjective"
-        String keyword = request.getKeyword();          // ví dụ: "positive"
+        String typeString = request.getParams().get(0); 
+        String keyword = request.getKeyword();        
         
-        // Chuyển đổi chuỗi "--adjective" thành Enum DefinitionType.ADJECTIVE
+        // Chuyển đổi chuỗi
         DefinitionType type = definitionTypeMap.get(typeString);
         if (type == null) {
             System.out.println("Loại định nghĩa '" + typeString + "' không hợp lệ.");
             return;
         }
 
-        // Hỏi người dùng định nghĩa
+        // Hỏi định nghĩa
         System.out.print(type + " defination: ");
         String meaning = inputScanner.nextLine();
         
-        // Gọi service để thêm (hoặc tạo mới)
-        // Lưu ý: Dòng "created new one" được in từ trong Service
+        // Gọi service
         WordEntity word = service.defineWord(keyword, type, meaning);
 
-        // Lấy về định nghĩa cuối cùng vừa thêm
+        // Lấy về định nghĩa
         Definition newDef = word.getDefinitions().get(word.getDefinitions().size() - 1);
 
         // Chỉ hỏi câu mẫu nếu là danh từ, tính từ, động từ
@@ -149,16 +134,12 @@ public class DictionaryController {
             System.out.print("Sentence: ");
             String sentence = inputScanner.nextLine();
             
-            // Nếu người dùng nhập câu mẫu
             if (!sentence.isEmpty()) {
                 System.out.print("Sentence's meaning: ");
                 String sentenceMeaning = inputScanner.nextLine();
                 
-                // Thêm câu mẫu vào định nghĩa
                 newDef.addExample(new ExampleSentence(sentence, sentenceMeaning));
 
-                // NÂNG CAO: Vì chúng ta đã thêm ví dụ, 
-                // chúng ta cần báo Service lưu lại file một lần nữa
                 service.saveWordToFile(word);
             }
         }
@@ -166,7 +147,7 @@ public class DictionaryController {
     }
 
     /**
-     * Phương thức trợ giúp để in một mục từ theo định dạng đẹp
+     * Phương thức in một mục từ
      */
     private void printWord(WordEntity word) {
         System.out.println("@" + word.getKeyword());

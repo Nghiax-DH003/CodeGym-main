@@ -6,14 +6,12 @@ public class Request {
     private String action;
     private String keyword;
     // params sẽ lưu mọi thứ không phải action và keyword
-    // Ví dụ: ['--adjective', 'a positive factor', 'một nhân tố tích cực']
     private List<String> params;
 
     public Request() {
         this.params = new ArrayList<>();
     }
 
-    // Các phương thức Setter (để gán dữ liệu vào)
     public void setAction(String action) {
         this.action = action;
     }
@@ -26,7 +24,6 @@ public class Request {
         this.params.add(param);
     }
 
-    // Các phương thức Getter (để lấy dữ liệu ra)
     public String getAction() {
         return action;
     }

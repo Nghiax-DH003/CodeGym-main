@@ -1,24 +1,24 @@
 // Definition.java
 import java.util.List;
-import java.util.ArrayList; // Chúng ta dùng ArrayList để lưu danh sách
+import java.util.ArrayList; // ArrayList để lưu danh sách
 
 public class Definition {
     private DefinitionType type;
     private String meaning;
-    private List<ExampleSentence> examples; // Một danh sách các câu mẫu
+    private List<ExampleSentence> examples; // Danh sách các câu mẫu
 
     public Definition(DefinitionType type, String meaning) {
         this.type = type;
         this.meaning = meaning;
-        this.examples = new ArrayList<>(); // Khởi tạo danh sách rỗng
+        this.examples = new ArrayList<>(); // Khởi tạo danh sách
     }
 
-    // Phương thức để thêm một câu mẫu vào định nghĩa này
+    // Thêm một câu mẫu vào định nghĩa
     public void addExample(ExampleSentence example) {
         this.examples.add(example);
     }
 
-    // Các phương thức getter
+    // Phương thức getter
     public DefinitionType getType() {
         return type;
     }

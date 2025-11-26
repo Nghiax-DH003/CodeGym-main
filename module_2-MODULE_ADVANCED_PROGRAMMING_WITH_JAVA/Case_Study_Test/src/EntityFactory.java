@@ -1,9 +1,7 @@
-// EntityFactory.java
-// "Nhà máy" của chúng ta để sản xuất các đối tượng
 public class EntityFactory {
 
     public WordEntity createWordEntity(String keyword) {
-        // Đơn giản là tạo một WordEntity mới
+        // Tạo một WordEntity
         return new WordEntity(keyword);
     }
 
